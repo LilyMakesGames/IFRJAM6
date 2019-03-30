@@ -16,6 +16,8 @@ public class GameManager : MonoBehaviour
     float codeObjective, artObjective, writeObjective, coffeeObjective, soundObjective;
     float totalProgress;
 
+    public float decay;
+
     [SerializeField]
     float timer = 180;
 
@@ -78,11 +80,11 @@ public class GameManager : MonoBehaviour
     {
         yield return new WaitForSeconds(1f);
         timer--;
-        codeProgress -= 0.1f;
-        artProgress -= 0.1f;
-        writeProgress -= 0.1f;
-        coffeeProgress -= 0.1f;
-        soundProgress -= 0.1f;
+        codeProgress -= decay;
+        artProgress -= decay;
+        writeProgress -= decay;
+        coffeeProgress -= decay;
+        soundProgress -= decay;
         StartCoroutine(Timer());
     }
 }

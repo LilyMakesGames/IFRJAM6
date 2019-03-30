@@ -17,7 +17,7 @@ public class Player : MonoBehaviour
         info = GetComponent<PlayerInfo>();
         rb = GetComponent<Rigidbody2D>();
 
-        info.SetStatus(1, 1, 1, 1, 1,100);
+        info.SetStatus(1, 1, 1, 1, 1,999999);
 
     }
 
@@ -79,6 +79,7 @@ public class Player : MonoBehaviour
                             npcBehind = null;
                             carried.transform.position = new Vector3(currentCol.transform.position.x, currentCol.transform.position.y + 0.75f);
                             currentCol.GetComponent<Funcao>().ChangeCharUsing(carried.GetComponent<PlayerInfo>());
+                            carried.GetComponent<PlayerInfo>().workingNow = currentCol.GetComponent<Funcao>();
                             carried = null;
                             info.playerState = PlayerInfo.PlayerState.Idle;
                         }
