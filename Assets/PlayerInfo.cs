@@ -15,16 +15,17 @@ public class PlayerInfo : MonoBehaviour
 
     public Funcao workingNow;
 
-    public int prog, art, write, coffee, sound;
+    public float prog, art, write, coffee, sound, patience;
     public float stress;
 
 
-    public void SetStatus(int p, int a, int w, int c, int s)
+    public void SetStatus(int p, int a, int w, int c, int s, int pa)
     {
         prog = p;
         art = a;
         write = w;
         coffee = c;
         sound = s;
+        patience = pa;
     }
 }

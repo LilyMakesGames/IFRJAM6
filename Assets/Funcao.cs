@@ -42,20 +42,30 @@ public class Funcao : MonoBehaviour
                 {
                     case MachineType.Code:
                         manager.codeProgress += charUsing.prog;
+                        manager.artProgress -= charUsing.art / 4;
+                        charUsing.stress++;
                         break;
                     case MachineType.Art:
                         manager.artProgress += charUsing.art;
+                        manager.soundProgress -= charUsing.sound / 4;
+                        charUsing.stress++;
                         break;
                     case MachineType.Coffee:
                         manager.coffeeProgress += charUsing.coffee;
+                        charUsing.stress++;
                         break;
                     case MachineType.Sound:
                         manager.soundProgress += charUsing.sound;
+                        manager.writeProgress -= charUsing.write / 4;
+                        charUsing.stress++;
                         break;
                     case MachineType.Writing:
                         manager.writeProgress += charUsing.write;
+                        manager.codeProgress -= charUsing.prog / 4;
+                        charUsing.stress++;
                         break;
                     case MachineType.Rest:
+                        charUsing.stress--;
                         break;
                 }
             }
