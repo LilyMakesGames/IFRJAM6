@@ -31,7 +31,8 @@ public class Player : MonoBehaviour
                 {
                     if (Input.GetButtonDown("Action"))
                     {
-                        if (currentCol.GetComponent<Funcao>().charUsing == null)
+                        Debug.Log("Entrou?");
+                        if (currentCol.GetComponent<Funcao>().charUsing == null && npcBehind == null)
                         {
                             rb.velocity = Vector3.zero;
                             info.workingNow = currentCol.GetComponent<Funcao>();
@@ -46,11 +47,13 @@ public class Player : MonoBehaviour
                 {
                     if (Input.GetButton("Action"))
                     {
+                        Debug.Log("GetNPC");
                         carried = npcBehind;
                         info.playerState = PlayerInfo.PlayerState.Carrying;
                     }
-                    if(currentCol != null)
+                    if(currentCol != null && Input.GetButton("Action"))
                     {
+                        Debug.Log("RemoveNPC");
                         currentCol.GetComponent<Funcao>().ChangeCharUsing(null);
                     }
                 }
@@ -59,6 +62,7 @@ public class Player : MonoBehaviour
             case PlayerInfo.PlayerState.Working:
                 if (Input.GetButtonDown("Action"))
                 {
+                    Debug.Log("Leave Work");
                     info.workingNow.ChangeCharUsing(null);
                     info.playerState = PlayerInfo.PlayerState.Idle;
                 }
