@@ -10,6 +10,7 @@ public class Player : MonoBehaviour
     float speed;
     public PlayerInfo info;
     GameObject currentCol;
+    public GameObject carried, npcBehind;
 
     void Start()
     {
@@ -26,43 +27,93 @@ public class Player : MonoBehaviour
         {
             case PlayerInfo.PlayerState.Idle:
                 rb.velocity = new Vector3(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")) * speed;
-                if(currentCol != null)
+                if (currentCol != null)
                 {
-                    if (Input.GetButtonDown("Action") && currentCol.CompareTag("Machine"))
+                    if (Input.GetButtonDown("Action"))
                     {
                         if (currentCol.GetComponent<Funcao>().charUsing == null)
                         {
                             rb.velocity = Vector3.zero;
                             info.workingNow = currentCol.GetComponent<Funcao>();
+                            transform.position = currentCol.transform.position;
                             currentCol.GetComponent<Funcao>().ChangeCharUsing(info);
                             info.playerState = PlayerInfo.PlayerState.Working;
                         }
                     }
 
                 }
+                if (npcBehind != null)
+                {
+                    if (Input.GetButton("Action"))
+                    {
+                        carried = npcBehind;
+                        info.playerState = PlayerInfo.PlayerState.Carrying;
+                    }
+                    if(currentCol != null)
+                    {
+                        currentCol.GetComponent<Funcao>().ChangeCharUsing(null);
+                    }
+                }
+
                 break;
             case PlayerInfo.PlayerState.Working:
-                if (Input.GetButtonDown(("Action")))
+                if (Input.GetButtonDown("Action"))
                 {
                     info.workingNow.ChangeCharUsing(null);
                     info.playerState = PlayerInfo.PlayerState.Idle;
                 }
                 break;
+            case PlayerInfo.PlayerState.Carrying:
+                carried.transform.position = new Vector3(transform.position.x, transform.position.y + 0.5f);
+                rb.velocity = new Vector3(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")) * speed;
+                if (Input.GetButtonDown("Action"))
+                {
+                    if (currentCol != null && currentCol.GetComponent<Funcao>().charUsing == null)
+                    {
+                        npcBehind = null;
+                        carried.transform.position = currentCol.transform.position;
+                        currentCol.GetComponent<Funcao>().ChangeCharUsing(carried.GetComponent<PlayerInfo>());
+                        carried = null;
+                        info.playerState = PlayerInfo.PlayerState.Idle;
+                    }
+                    else
+                    {
+                        npcBehind = null;
+                        carried.transform.position = transform.position;
+                        carried = null;
+                        info.playerState = PlayerInfo.PlayerState.Idle;
+                    }
+                }
+                break;
+
         }
         if (Input.GetButtonDown("Bar"))
         {
             manager.panel.GetComponent<RectTransform>().position = new Vector3(manager.panel.GetComponent<RectTransform>().position.x * -1, manager.panel.GetComponent<RectTransform>().position.y);
         }
-
-
     }
 
     private void OnTriggerEnter2D(Collider2D col)
     {
-        currentCol = col.gameObject;
+        if (col.CompareTag("Machine"))
+        {
+            currentCol = col.gameObject;
+        }
+        if (col.CompareTag("NPC"))
+        {
+            npcBehind = col.gameObject;
+        }
     }
     private void OnTriggerExit2D(Collider2D col)
     {
-        currentCol = null;
+        if (col.CompareTag("Machine"))
+        {
+            currentCol = null;
+        }
+        if (col.CompareTag("NPC"))
+        {
+            npcBehind = null;
+        }
+
     }
 }
