@@ -6,15 +6,17 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
 
-    public Image progressBar;
+    public Image totalProgressBar;
+    public Image codeProgressBar, artProgressBar, writeProgressBar, coffeeProgressBar, soundProgressBar;
     public GameObject panel;
     bool showPanel = false;
 
-    public float gameProgress = 1;
-    public float codeProgress, artProgress, writingProgress, coffeeProgress, soundProgress;
-    float codeProgressMax = 30, artProgressMax = 40, writingProgressMax = 70, coffeeProgressMax = 80, soundProgressMax = 10;
+    public float gameProgress;
+    public float codeProgress, artProgress, writeProgress, coffeeProgress, soundProgress;
+    float codeProgressMax = 30, artProgressMax = 40, writeProgressMax = 70, coffeeProgressMax = 80, soundProgressMax = 10;
     float totalProgress;
 
+    [SerializeField]
     float timer = 60;
 
     public bool gameStarted;
@@ -22,7 +24,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         StartCoroutine(Timer());
-        totalProgress = codeProgressMax + artProgressMax + writingProgressMax + coffeeProgressMax + soundProgressMax;
+        totalProgress = codeProgressMax + artProgressMax + writeProgressMax + coffeeProgressMax + soundProgressMax;
 
     }
 
@@ -33,19 +35,24 @@ public class GameManager : MonoBehaviour
             codeProgress = codeProgressMax;
         if (artProgress > artProgressMax)
             artProgress = artProgressMax;
-        if (writingProgress > writingProgressMax)
-            writingProgress = writingProgressMax;
+        if (writeProgress > writeProgressMax)
+            writeProgress = writeProgressMax;
         if (coffeeProgress > coffeeProgressMax)
             coffeeProgress = coffeeProgressMax;
         if (soundProgress > soundProgressMax)
             soundProgress = soundProgressMax;
-        gameProgress = codeProgress + artProgress + writingProgress + coffeeProgress + soundProgress;
-        progressBar.fillAmount = (gameProgress/totalProgress);
+        gameProgress = codeProgress + artProgress + writeProgress + coffeeProgress + soundProgress;
+        totalProgressBar.fillAmount = (gameProgress/totalProgress);
+
+        codeProgressBar.fillAmount = (codeProgress/codeProgressMax);
+        artProgressBar.fillAmount = (artProgress/artProgressMax);
+        writeProgressBar.fillAmount = (writeProgress/writeProgressMax);
+        coffeeProgressBar.fillAmount = (coffeeProgress/coffeeProgressMax);
+        soundProgressBar.fillAmount = (soundProgress/soundProgressMax);
     }
 
     IEnumerator Timer()
     {
-        Debug.Log(timer);
         yield return new WaitForSeconds(1f);
         timer--;
         StartCoroutine(Timer());

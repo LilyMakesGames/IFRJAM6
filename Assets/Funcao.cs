@@ -53,7 +53,7 @@ public class Funcao : MonoBehaviour
                         manager.soundProgress += charUsing.sound;
                         break;
                     case MachineType.Writing:
-                        manager.writingProgress += charUsing.write;
+                        manager.writeProgress += charUsing.write;
                         break;
                     case MachineType.Rest:
                         break;
@@ -65,12 +65,9 @@ public class Funcao : MonoBehaviour
 
     public void ChangeCharUsing(PlayerInfo c)
     {
+        StopAllCoroutines();
         charUsing = c;
-        if(c == null)
-        {
-            StopCoroutine(Tick());
-        }
-        else
+        if(c != null)
         {
             StartCoroutine(Tick());
         }
@@ -78,7 +75,7 @@ public class Funcao : MonoBehaviour
 
     IEnumerator Tick()
     {
-        yield return new WaitForSeconds(0.4f);
+        yield return new WaitForSeconds(1f);
         UpdateValues();
         StartCoroutine(Tick());
     }
