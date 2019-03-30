@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Machine
   - NPC
+  - Exit
   layers:
   - Default
   - TransparentFX
