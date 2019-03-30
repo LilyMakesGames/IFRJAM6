@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour
 
     public Image totalProgressBar;
     public Image codeProgressBar, artProgressBar, writeProgressBar, coffeeProgressBar, soundProgressBar;
-    public GameObject panel;
+    public GameObject progressPanel, gameOverPanel;
     bool showPanel = false;
 
     public float gameProgress;
@@ -31,6 +31,17 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
+        ProgressUpdate();
+        if (timer <= 0)
+        {
+            StopCoroutine(Timer());
+            gameOverPanel.SetActive(true);
+            gameStarted = false;
+        }
+    }
+
+    void ProgressUpdate()
+    {
         if (codeProgress > codeProgressMax)
             codeProgress = codeProgressMax;
         if (artProgress > artProgressMax)
@@ -42,13 +53,14 @@ public class GameManager : MonoBehaviour
         if (soundProgress > soundProgressMax)
             soundProgress = soundProgressMax;
         gameProgress = codeProgress + artProgress + writeProgress + coffeeProgress + soundProgress;
-        totalProgressBar.fillAmount = (gameProgress/totalProgress);
+        totalProgressBar.fillAmount = (gameProgress / totalProgress);
 
-        codeProgressBar.fillAmount = (codeProgress/codeProgressMax);
-        artProgressBar.fillAmount = (artProgress/artProgressMax);
-        writeProgressBar.fillAmount = (writeProgress/writeProgressMax);
-        coffeeProgressBar.fillAmount = (coffeeProgress/coffeeProgressMax);
-        soundProgressBar.fillAmount = (soundProgress/soundProgressMax);
+        codeProgressBar.fillAmount = (codeProgress / codeProgressMax);
+        artProgressBar.fillAmount = (artProgress / artProgressMax);
+        writeProgressBar.fillAmount = (writeProgress / writeProgressMax);
+        coffeeProgressBar.fillAmount = (coffeeProgress / coffeeProgressMax);
+        soundProgressBar.fillAmount = (soundProgress / soundProgressMax);
+
     }
 
     IEnumerator Timer()

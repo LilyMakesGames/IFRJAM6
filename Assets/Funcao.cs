@@ -77,7 +77,8 @@ public class Funcao : MonoBehaviour
     {
         yield return new WaitForSeconds(1f);
         UpdateValues();
-        StartCoroutine(Tick());
+        if(manager.gameStarted)
+            StartCoroutine(Tick());
     }
 
 }
