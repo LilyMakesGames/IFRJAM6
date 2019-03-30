@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
     public float gameProgress;
     public float codeProgress, artProgress, writeProgress, coffeeProgress, soundProgress;
     float codeProgressMax = 30, artProgressMax = 40, writeProgressMax = 70, coffeeProgressMax = 80, soundProgressMax = 10;
+    float codeObjective, artObjective, writeObjective, coffeeObjective, soundObjective;
     float totalProgress;
 
     [SerializeField]
@@ -52,6 +53,18 @@ public class GameManager : MonoBehaviour
             coffeeProgress = coffeeProgressMax;
         if (soundProgress > soundProgressMax)
             soundProgress = soundProgressMax;
+
+        if (codeProgress <= 0)
+            codeProgress = 0;
+        if (artProgress <= 0)
+            artProgress = 0;
+        if (writeProgress <= 0)
+            writeProgress = 0;
+        if (coffeeProgress <= 0)
+            coffeeProgress = 0;
+        if (soundProgress <= 0)
+            soundProgress = 0;
+
         gameProgress = codeProgress + artProgress + writeProgress + coffeeProgress + soundProgress;
         totalProgressBar.fillAmount = (gameProgress / totalProgress);
 
