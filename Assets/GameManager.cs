@@ -12,7 +12,8 @@ public class GameManager : MonoBehaviour
 
     public float gameProgress = 1;
     public float codeProgress, artProgress, writingProgress, coffeeProgress, soundProgress;
-    public float codeProgressMax = 20, artProgressMax = 20, writingProgressMax = 20, coffeeProgressMax = 20, soundProgressMax = 20;
+    float codeProgressMax = 30, artProgressMax = 40, writingProgressMax = 70, coffeeProgressMax = 80, soundProgressMax = 10;
+    float totalProgress;
 
     float timer = 60;
 
@@ -21,6 +22,8 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         StartCoroutine(Timer());
+        totalProgress = codeProgressMax + artProgressMax + writingProgressMax + coffeeProgressMax + soundProgressMax;
+
     }
 
 
@@ -37,7 +40,7 @@ public class GameManager : MonoBehaviour
         if (soundProgress > soundProgressMax)
             soundProgress = soundProgressMax;
         gameProgress = codeProgress + artProgress + writingProgress + coffeeProgress + soundProgress;
-        progressBar.fillAmount = gameProgress/100;
+        progressBar.fillAmount = (gameProgress/totalProgress);
     }
 
     IEnumerator Timer()

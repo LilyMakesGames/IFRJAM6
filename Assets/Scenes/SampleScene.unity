@@ -1153,11 +1153,7 @@ MonoBehaviour:
   writingProgress: 0
   coffeeProgress: 0
   soundProgress: 0
-  codeProgressMax: 20
-  artProgressMax: 20
-  writingProgressMax: 20
-  coffeeProgressMax: 20
-  soundProgressMax: 20
+  gameStarted: 1
 --- !u!4 &1373827755
 Transform:
   m_ObjectHideFlags: 0
