@@ -13,19 +13,19 @@ public class GameManager : MonoBehaviour
 
     public float gameProgress;
     public float codeProgress, artProgress, writeProgress, coffeeProgress, soundProgress;
-    float codeProgressMax = 30, artProgressMax = 40, writeProgressMax = 70, coffeeProgressMax = 80, soundProgressMax = 10;
+    float codeProgressMax = 30f, artProgressMax = 40f, writeProgressMax = 70f, coffeeProgressMax = 80f, soundProgressMax = 10f;
     float codeObjective, artObjective, writeObjective, coffeeObjective, soundObjective;
     float totalProgress;
 
     [SerializeField]
-    float timer = 60;
+    float timer = 180;
 
     public bool gameStarted;
 
     void Start()
     {
         StartCoroutine(Timer());
-        totalProgress = codeProgressMax + artProgressMax + writeProgressMax + coffeeProgressMax + soundProgressMax;
+        totalProgress = codeObjective + artObjective + writeObjective + coffeeObjective + soundObjective;
 
     }
 
@@ -80,6 +80,11 @@ public class GameManager : MonoBehaviour
     {
         yield return new WaitForSeconds(1f);
         timer--;
+        codeProgress -= 0.25f;
+        artProgress -= 0.25f;
+        writeProgress -= 0.25f;
+        coffeeProgress -= 0.25f;
+        soundProgress -= 0.25f;
         StartCoroutine(Timer());
     }
 }

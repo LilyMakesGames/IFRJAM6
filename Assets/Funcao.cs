@@ -21,16 +21,6 @@ public class Funcao : MonoBehaviour
 
     public MachineType machineType;
 
-    void Start()
-    {
-
-    }
-
-
-    void Update()
-    {
-
-    }
 
     void UpdateValues()
     {
@@ -42,12 +32,12 @@ public class Funcao : MonoBehaviour
                 {
                     case MachineType.Code:
                         manager.codeProgress += charUsing.prog;
-                        manager.artProgress -= charUsing.art / 4;
+                        manager.artProgress -= charUsing.art / 3;
                         charUsing.stress++;
                         break;
                     case MachineType.Art:
                         manager.artProgress += charUsing.art;
-                        manager.soundProgress -= charUsing.sound / 4;
+                        manager.soundProgress -= charUsing.sound / 3;
                         charUsing.stress++;
                         break;
                     case MachineType.Coffee:
@@ -56,12 +46,12 @@ public class Funcao : MonoBehaviour
                         break;
                     case MachineType.Sound:
                         manager.soundProgress += charUsing.sound;
-                        manager.writeProgress -= charUsing.write / 4;
+                        manager.writeProgress -= charUsing.write / 3;
                         charUsing.stress++;
                         break;
                     case MachineType.Writing:
                         manager.writeProgress += charUsing.write;
-                        manager.codeProgress -= charUsing.prog / 4;
+                        manager.codeProgress -= charUsing.prog / 3;
                         charUsing.stress++;
                         break;
                     case MachineType.Rest:
@@ -69,6 +59,8 @@ public class Funcao : MonoBehaviour
                         break;
                 }
             }
+
+
         }
 
     }
