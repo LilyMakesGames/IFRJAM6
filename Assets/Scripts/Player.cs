@@ -76,7 +76,7 @@ public class Player : MonoBehaviour
 							
                             if (currentCol.GetComponent<Funcao>().charUsing == null && npcBehind == null)
                             {
-								animator.SetBool("isWorking", true);
+								//animator.SetBool("isWorking", true);
                                 rb.velocity = Vector3.zero;
                                 info.workingNow = currentCol.GetComponent<Funcao>();
                                 transform.position = new Vector3(currentCol.transform.position.x, currentCol.transform.position.y + 0.75f);
@@ -99,6 +99,7 @@ public class Player : MonoBehaviour
                         {
                             Debug.Log("RemoveNPC");
                             currentCol.GetComponent<Funcao>().ChangeCharUsing(null);
+							carried.GetComponent<PlayerInfo>().workingNow = null;
                         }
                     }
 
@@ -107,8 +108,9 @@ public class Player : MonoBehaviour
                     if (Input.GetButtonDown("Action"))
                     {
                         Debug.Log("Leave Work");
-						animator.SetBool("isWorking", false);
+						//animator.SetBool("isWorking", false);
                         info.workingNow.ChangeCharUsing(null);
+						info.workingNow = null;
                         info.playerState = PlayerInfo.PlayerState.Idle;
                     }
                     break;
@@ -135,6 +137,7 @@ public class Player : MonoBehaviour
                             npcBehind = null;
                             carried.transform.position = new Vector3(currentCol.transform.position.x, currentCol.transform.position.y + 0.75f);
                             currentCol.GetComponent<Funcao>().ChangeCharUsing(carried.GetComponent<PlayerInfo>());
+							carried.GetComponent<PlayerInfo>().workingNow = currentCol.GetComponent<Funcao>();
                             carried = null;
                             info.playerState = PlayerInfo.PlayerState.Idle;
                         }

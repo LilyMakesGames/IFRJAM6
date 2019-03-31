@@ -4,6 +4,13 @@ using UnityEngine;
 
 public class PlayerInfo : MonoBehaviour
 {
+	private Animator animator;
+	
+	void Start()
+	{
+		animator = GetComponent<Animator>();
+	}
+	
     public enum PlayerState
     {
         Idle,
@@ -17,6 +24,18 @@ public class PlayerInfo : MonoBehaviour
 
     public float prog, art, write, coffee, sound, patience;
     public float stress;
+	
+	void FixedUpdate()
+	{
+		if (workingNow == null)
+		{
+			animator.SetBool("isWorking", false);
+		}
+		else
+		{
+			animator.SetBool("isWorking", true);
+		}
+	}
 
 
     public void SetStatus(int p, int a, int w, int c, int s, int pa)
