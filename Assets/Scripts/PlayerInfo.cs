@@ -33,13 +33,21 @@ public class PlayerInfo : MonoBehaviour
 	
 	void FixedUpdate()
 	{
-		if (workingNow == null)
+		if (workingNow != null)
 		{
-			animator.SetBool("isWorking", false);
-		}
-		else
-		{
-			animator.SetBool("isWorking", true);
+            switch (workingNow.machineType)
+            {
+                case Funcao.MachineType.Rest:
+                    animator.SetBool("isTaked", true);
+                    GetComponent<SpriteRenderer>().flipX = true;
+                    break;
+                case Funcao.MachineType.Coffee:
+                    animator.SetBool("isTaked", true);
+                    break;
+                default:
+                    animator.SetBool("isWorking", true);
+                    break;
+            }
 		}
 	}
 
@@ -58,6 +66,7 @@ public class PlayerInfo : MonoBehaviour
                 }
                 playerState = PlayerState.Stressing;
                 workingNow.ChangeCharUsing(null);
+                workingNow = null;
                 Debug.Log("CHEGA DESSA MERDA!!!!");
             }
         }

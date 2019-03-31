@@ -87,6 +87,7 @@ public class Player : MonoBehaviour
                             Debug.Log("GetNPC");
                             manager.PlaySound(manager.catchNPC);
                             carried = npcBehind;
+                            carried.GetComponent<SpriteRenderer>().flipX = false;
                             info.playerState = PlayerInfo.PlayerState.Carrying;
 							animator.SetBool("isLoading", true);
 							carried.GetComponent<PlayerInfo>().animator.SetBool("isTaked", true);
@@ -144,6 +145,10 @@ public class Player : MonoBehaviour
                                     break;
                                 case Funcao.MachineType.Coffee:
                                     carried.transform.position = new Vector3(currentCol.transform.position.x - 1f, currentCol.transform.position.y);
+                                    break;
+
+                                case Funcao.MachineType.Sound:
+                                    carried.transform.position = new Vector3(currentCol.transform.position.x + 0.75f, currentCol.transform.position.y + 1f);
                                     break;
                                 default:
                                     carried.transform.position = new Vector3(currentCol.transform.position.x, currentCol.transform.position.y + 0.75f);
