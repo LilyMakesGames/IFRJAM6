@@ -20,10 +20,11 @@ public class Player : MonoBehaviour
         info = GetComponent<PlayerInfo>();
         rb = GetComponent<Rigidbody2D>();
 
+        
         info.SetStatus(3, 3, 3, 3, 3,999999);
-		
 		animator = GetComponent<Animator>();
 		spriteRenderer = GetComponent<SpriteRenderer>();
+
 
     }
 
@@ -68,6 +69,7 @@ public class Player : MonoBehaviour
 							
                             if (currentCol.GetComponent<Funcao>().charUsing == null && npcBehind == null)
                             {
+                                manager.PlaySound(manager.startedWorking);
 								//animator.SetBool("isWorking", true);
                                 rb.velocity = Vector3.zero;
                                 info.workingNow = currentCol.GetComponent<Funcao>();
@@ -149,7 +151,7 @@ public class Player : MonoBehaviour
 
                             }
                             currentCol.GetComponent<Funcao>().ChangeCharUsing(carried.GetComponent<PlayerInfo>());
-							carried.GetComponent<PlayerInfo>().workingNow = currentCol.GetComponent<Funcao>();
+                            carried.GetComponent<PlayerInfo>().workingNow = currentCol.GetComponent<Funcao>();
                             carried = null;
                             info.playerState = PlayerInfo.PlayerState.Idle;
                             manager.PlaySound(manager.releaseNPC);

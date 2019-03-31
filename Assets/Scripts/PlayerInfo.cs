@@ -30,6 +30,7 @@ public class PlayerInfo : MonoBehaviour
     public float prog, art, write, coffee, sound, patience;
     public float stress;
     public bool soundStress;
+    public bool soundStress;
 	
 	void FixedUpdate()
 	{
