@@ -94,6 +94,7 @@ public class Player : MonoBehaviour
                             carried = npcBehind;
                             info.playerState = PlayerInfo.PlayerState.Carrying;
 							animator.SetBool("isLoading", true);
+							carried.GetComponent<PlayerInfo>().animator.SetBool("isTaked", true);
                         }
                         if (currentCol != null && Input.GetButton("Action"))
                         {
@@ -132,6 +133,7 @@ public class Player : MonoBehaviour
                     if (Input.GetButtonDown("Action"))
                     {
 						animator.SetBool("isLoading", false);
+						carried.GetComponent<PlayerInfo>().animator.SetBool("isTaked", false);
                         if (currentCol != null && currentCol.GetComponent<Funcao>().charUsing == null)
                         {
                             npcBehind = null;

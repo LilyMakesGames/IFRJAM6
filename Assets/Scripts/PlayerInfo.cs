@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerInfo : MonoBehaviour
 {
-	private Animator animator;
+	public Animator animator;
 	
 	void Start()
 	{
