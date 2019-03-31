@@ -17,7 +17,7 @@ public class Player : MonoBehaviour
         info = GetComponent<PlayerInfo>();
         rb = GetComponent<Rigidbody2D>();
 
-        info.SetStatus(1, 1, 1, 1, 1,999999);
+        info.SetStatus(3, 3, 3, 3, 3,999999);
 
     }
 

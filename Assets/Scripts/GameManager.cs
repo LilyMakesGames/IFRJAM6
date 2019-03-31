@@ -18,8 +18,7 @@ public class GameManager : MonoBehaviour
     public Animator clockAnim;
 
     public float gameProgress;
-    [HideInInspector]
-    public float codeProgress, artProgress, writeProgress, coffeeProgress, soundProgress;
+    public float codeProgress=50f, artProgress = 50f, writeProgress = 50f, coffeeProgress = 50f, soundProgress = 50f;
     float codeProgressMax = 100f, artProgressMax = 100f, writeProgressMax = 100f, coffeeProgressMax = 100f, soundProgressMax = 100f;
     public float codeObjective, artObjective, writeObjective, coffeeObjective, soundObjective;
     float totalProgress;
@@ -38,13 +37,18 @@ public class GameManager : MonoBehaviour
         div = timer / 30;
         StartCoroutine(Timer());
         totalProgress = codeObjective + artObjective + writeObjective + coffeeObjective + soundObjective;
+        codeArrow.GetComponent<RectTransform>().anchoredPosition = new Vector3((codeObjective / codeProgressMax * 66) + 7, 5);
+        artArrow.GetComponent<RectTransform>().anchoredPosition = new Vector3((artObjective / artProgressMax * 66) + 7, 5);
+        writeArrow.GetComponent<RectTransform>().anchoredPosition = new Vector3((writeObjective / writeProgressMax * 66) + 7, 5);
+        soundArrow.GetComponent<RectTransform>().anchoredPosition = new Vector3((soundObjective / soundProgressMax * 66) + 7, 5);
+        coffeeArrow.GetComponent<RectTransform>().anchoredPosition = new Vector3((coffeeObjective / coffeeProgressMax * 66) + 7, 5);
+
     }
 
 
     void Update()
     {
         ProgressUpdate();
-        codeArrow.GetComponent<RectTransform>().anchoredPosition = new Vector3((codeObjective / codeProgressMax* 66) + 7, 5);
 
     }
 

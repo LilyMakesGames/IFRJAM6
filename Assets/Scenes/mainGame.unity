@@ -398,12 +398,12 @@ MonoBehaviour:
   cloth: {fileID: 0}
   naked: {fileID: 0}
   workingNow: {fileID: 0}
-  prog: 1
-  art: 1
-  write: 1
-  coffee: 2
-  sound: 1
-  patience: 70
+  prog: 2
+  art: 7
+  write: 3
+  coffee: 8
+  sound: 3
+  patience: 60
   stress: 0
   soundStress: 0
 --- !u!61 &89911292
@@ -1217,12 +1217,12 @@ MonoBehaviour:
   cloth: {fileID: 0}
   naked: {fileID: 0}
   workingNow: {fileID: 0}
-  prog: 2
-  art: 1
-  write: 1
-  coffee: 1
-  sound: 1
-  patience: 3
+  prog: 8
+  art: 4
+  write: 2
+  coffee: 3
+  sound: 3
+  patience: 45
   stress: 0
   soundStress: 0
 --- !u!61 &421228093
@@ -1369,7 +1369,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
   m_AnchoredPosition: {x: 21, y: 5}
-  m_SizeDelta: {x: 5, y: 5}
+  m_SizeDelta: {x: 10, y: 10}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &459501795
 MonoBehaviour:
@@ -2847,7 +2847,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
   m_AnchoredPosition: {x: 21, y: 5}
-  m_SizeDelta: {x: 5, y: 5}
+  m_SizeDelta: {x: 10, y: 10}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1074642087
 MonoBehaviour:
@@ -3044,7 +3044,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
   m_AnchoredPosition: {x: 21, y: 5}
-  m_SizeDelta: {x: 5, y: 5}
+  m_SizeDelta: {x: 10, y: 10}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1189182419
 MonoBehaviour:
@@ -3383,17 +3383,17 @@ MonoBehaviour:
   stoppedWorking: {fileID: 8300000, guid: 3846ffca34b09d643b526d58d9bbfe3f, type: 3}
   clockAnim: {fileID: 727997158}
   gameProgress: 1
-  codeProgress: 0
-  artProgress: 0
-  writeProgress: 0
-  coffeeProgress: 0
-  soundProgress: 0
-  codeObjective: 50
-  artObjective: 0
-  writeObjective: 0
-  coffeeObjective: 0
-  soundObjective: 0
-  decay: 0.5
+  codeProgress: 30
+  artProgress: 30
+  writeProgress: 30
+  coffeeProgress: 30
+  soundProgress: 30
+  codeObjective: 60
+  artObjective: 70
+  writeObjective: 30
+  coffeeObjective: 60
+  soundObjective: 50
+  decay: 0.01
   timer: 30
   gameStarted: 1
 --- !u!4 &1373827755
@@ -4401,7 +4401,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
   m_AnchoredPosition: {x: 21, y: 5}
-  m_SizeDelta: {x: 5, y: 5}
+  m_SizeDelta: {x: 10, y: 10}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1765411941
 MonoBehaviour:
@@ -4475,7 +4475,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
   m_AnchoredPosition: {x: 21, y: 5}
-  m_SizeDelta: {x: 5, y: 5}
+  m_SizeDelta: {x: 10, y: 10}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1809827654
 MonoBehaviour:
