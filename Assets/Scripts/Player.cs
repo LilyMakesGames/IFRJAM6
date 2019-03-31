@@ -11,6 +11,9 @@ public class Player : MonoBehaviour
     public PlayerInfo info;
     GameObject currentCol;
     public GameObject carried, npcBehind;
+	
+	private Animator animator;
+	private SpriteRenderer spriteRenderer;
 
     void Start()
     {
@@ -18,22 +21,59 @@ public class Player : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
 
         info.SetStatus(1, 1, 1, 1, 1,100);
+		
+		animator = GetComponent<Animator>();
+		spriteRenderer = GetComponent<SpriteRenderer>();
 
     }
+	
+	void Update()
+	{
+		
+		//int h = Input.GetAxisRaw("Horizontal");
+		//int v = Input.GetAxisRaw("Vertical");
+	}
+
+
 
     void FixedUpdate()
     {
+		float h = 0f;
+		float v = 0f;
         if (manager.gameStarted)
         {
             switch (info.playerState)
             {
                 case PlayerInfo.PlayerState.Idle:
-                    rb.velocity = new Vector3(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")) * speed;
+                    
+					h = Input.GetAxisRaw("Horizontal");
+					v = Input.GetAxisRaw("Vertical");
+					if ( h == 0f && v == 0f )
+					{
+						animator.SetBool("isWalking", false);
+					}
+					else
+					{
+						animator.SetBool("isWalking", true);
+						animator.SetFloat("horizontal", h);
+						animator.SetFloat("vertical", v);
+						if (h == -1)
+						{
+							spriteRenderer.flipX = true;
+						}
+						else if (h == 1)
+						{
+							spriteRenderer.flipX = false;
+						}
+					}
+					rb.velocity = new Vector3(h, v) * speed;
+					
                     if (currentCol != null)
                     {
                         if (Input.GetButtonDown("Action"))
                         {
                             Debug.Log("Entrou?");
+							animator.SetBool("isWorking", true);
                             if (currentCol.GetComponent<Funcao>().charUsing == null && npcBehind == null)
                             {
                                 rb.velocity = Vector3.zero;
@@ -52,6 +92,7 @@ public class Player : MonoBehaviour
                             Debug.Log("GetNPC");
                             carried = npcBehind;
                             info.playerState = PlayerInfo.PlayerState.Carrying;
+							animator.SetBool("isLoading", true);
                         }
                         if (currentCol != null && Input.GetButton("Action"))
                         {
@@ -65,6 +106,7 @@ public class Player : MonoBehaviour
                     if (Input.GetButtonDown("Action"))
                     {
                         Debug.Log("Leave Work");
+						animator.SetBool("isWorking", false);
                         info.workingNow.ChangeCharUsing(null);
                         info.playerState = PlayerInfo.PlayerState.Idle;
                     }
@@ -72,8 +114,21 @@ public class Player : MonoBehaviour
                 case PlayerInfo.PlayerState.Carrying:
                     carried.transform.position = new Vector3(transform.position.x, transform.position.y + 0.5f);
                     rb.velocity = new Vector3(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")) * speed;
+					
+					h = Input.GetAxisRaw("Horizontal");
+					v = Input.GetAxisRaw("Vertical");
+					if ( h == 0f && v == 0f )
+					{
+						animator.SetBool("isWalking", false);
+					}
+					else
+					{
+						animator.SetBool("isWalking", true);
+					}
+					
                     if (Input.GetButtonDown("Action"))
                     {
+						animator.SetBool("isLoading", false);
                         if (currentCol != null && currentCol.GetComponent<Funcao>().charUsing == null)
                         {
                             npcBehind = null;
