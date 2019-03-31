@@ -20,7 +20,7 @@ public class Player : MonoBehaviour
         info = GetComponent<PlayerInfo>();
         rb = GetComponent<Rigidbody2D>();
 
-        info.SetStatus(1, 1, 1, 1, 1,100);
+        info.SetStatus(3, 3, 3, 3, 3,999999);
 		
 		animator = GetComponent<Animator>();
 		spriteRenderer = GetComponent<SpriteRenderer>();
@@ -83,6 +83,7 @@ public class Player : MonoBehaviour
                         if (Input.GetButton("Action"))
                         {
                             Debug.Log("GetNPC");
+                            manager.PlaySound(manager.catchNPC);
                             carried = npcBehind;
                             info.playerState = PlayerInfo.PlayerState.Carrying;
 							animator.SetBool("isLoading", true);
@@ -91,6 +92,10 @@ public class Player : MonoBehaviour
                         if (currentCol != null && Input.GetButton("Action"))
                         {
                             Debug.Log("RemoveNPC");
+                            carried.GetComponent<PlayerInfo>().soundStress = false;
+                            carried.GetComponent<PlayerInfo>().StopAllCoroutines();
+                            carried.GetComponent<PlayerInfo>().workingNow = null;
+                            manager.PlaySound(manager.catchNPC);
                             currentCol.GetComponent<Funcao>().ChangeCharUsing(null);
 							carried.GetComponent<PlayerInfo>().workingNow = null;
                         }
@@ -101,6 +106,7 @@ public class Player : MonoBehaviour
                     if (Input.GetButtonDown("Action"))
                     {
                         Debug.Log("Leave Work");
+                        manager.PlaySound(manager.stoppedWorking);
 						//animator.SetBool("isWorking", false);
                         info.workingNow.ChangeCharUsing(null);
 						info.workingNow = null;
@@ -129,14 +135,29 @@ public class Player : MonoBehaviour
                         if (currentCol != null && currentCol.GetComponent<Funcao>().charUsing == null)
                         {
                             npcBehind = null;
-                            carried.transform.position = new Vector3(currentCol.transform.position.x, currentCol.transform.position.y + 0.75f);
+                            switch (currentCol.GetComponent<Funcao>().machineType)
+                            {
+                                case Funcao.MachineType.Rest:
+                                    carried.transform.position = new Vector3(currentCol.transform.position.x, currentCol.transform.position.y +0.25f);
+                                    break;
+                                case Funcao.MachineType.Coffee:
+                                    carried.transform.position = new Vector3(currentCol.transform.position.x - 1f, currentCol.transform.position.y);
+                                    break;
+                                default:
+                                    carried.transform.position = new Vector3(currentCol.transform.position.x, currentCol.transform.position.y + 0.75f);
+                                    break;
+
+                            }
                             currentCol.GetComponent<Funcao>().ChangeCharUsing(carried.GetComponent<PlayerInfo>());
 							carried.GetComponent<PlayerInfo>().workingNow = currentCol.GetComponent<Funcao>();
                             carried = null;
                             info.playerState = PlayerInfo.PlayerState.Idle;
+                            manager.PlaySound(manager.releaseNPC);
+
                         }
                         else
                         {
+                            manager.PlaySound(manager.releaseNPC);
                             npcBehind = null;
                             carried.transform.position = transform.position;
                             carried = null;

@@ -32,12 +32,14 @@ public class Funcao : MonoBehaviour
                 {
                     case MachineType.Code:
                         manager.codeProgress += charUsing.prog;
+                        manager.coffeeProgress -= charUsing.coffee/4;
                         manager.artProgress -= charUsing.art / 3;
                         charUsing.stress++;
                         break;
                     case MachineType.Art:
                         manager.artProgress += charUsing.art;
-                        manager.soundProgress -= charUsing.sound / 3;
+                        manager.soundProgress -= charUsing.sound /4;
+                        manager.coffeeProgress -= charUsing.coffee/3;
                         charUsing.stress++;
                         break;
                     case MachineType.Coffee:
@@ -46,11 +48,13 @@ public class Funcao : MonoBehaviour
                         break;
                     case MachineType.Sound:
                         manager.soundProgress += charUsing.sound;
+                        manager.coffeeProgress -= charUsing.coffee/4;
                         manager.writeProgress -= charUsing.write / 3;
                         charUsing.stress++;
                         break;
                     case MachineType.Writing:
                         manager.writeProgress += charUsing.write;
+                        manager.coffeeProgress -= charUsing.coffee/4;
                         manager.codeProgress -= charUsing.prog / 3;
                         charUsing.stress++;
                         break;
