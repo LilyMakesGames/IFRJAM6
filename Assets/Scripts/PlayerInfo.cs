@@ -28,16 +28,19 @@ public class PlayerInfo : MonoBehaviour
     {
         if (stress <= 0)
             stress = 0;
-        if(stress > patience && workingNow.machineType != Funcao.MachineType.Rest)
+        if(workingNow != null)
         {
-            if (!soundStress)
+            if (stress > patience && workingNow.machineType != Funcao.MachineType.Rest)
             {
-                soundStress = true;
-                StartCoroutine(StressSound());
+                if (!soundStress)
+                {
+                    soundStress = true;
+                    StartCoroutine(StressSound());
+                }
+                playerState = PlayerState.Stressing;
+                workingNow.ChangeCharUsing(null);
+                Debug.Log("CHEGA DESSA MERDA!!!!");
             }
-            playerState = PlayerState.Stressing;
-            workingNow.ChangeCharUsing(null);
-            Debug.Log("CHEGA DESSA MERDA!!!!");
         }
     }
 
@@ -51,7 +54,7 @@ public class PlayerInfo : MonoBehaviour
         patience = pa;
     }
 
-    IEnumerator StressSound()
+    public IEnumerator StressSound()
     {
         yield return new WaitForSeconds(0.8f);
         manager.PlaySound(manager.tableSlam);

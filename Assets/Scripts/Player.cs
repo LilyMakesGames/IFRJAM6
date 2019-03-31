@@ -53,13 +53,14 @@ public class Player : MonoBehaviour
                             Debug.Log("GetNPC");
                             manager.PlaySound(manager.catchNPC);
                             carried = npcBehind;
-                            carried.GetComponent<PlayerInfo>().soundStress = false;
-                            carried.GetComponent<PlayerInfo>().StopAllCoroutines();
                             info.playerState = PlayerInfo.PlayerState.Carrying;
                         }
                         if (currentCol != null && Input.GetButton("Action"))
                         {
                             Debug.Log("RemoveNPC");
+                            carried.GetComponent<PlayerInfo>().soundStress = false;
+                            carried.GetComponent<PlayerInfo>().StopAllCoroutines();
+                            carried.GetComponent<PlayerInfo>().workingNow = null;
                             manager.PlaySound(manager.catchNPC);
                             currentCol.GetComponent<Funcao>().ChangeCharUsing(null);
                         }
@@ -83,7 +84,19 @@ public class Player : MonoBehaviour
                         if (currentCol != null && currentCol.GetComponent<Funcao>().charUsing == null)
                         {
                             npcBehind = null;
-                            carried.transform.position = new Vector3(currentCol.transform.position.x, currentCol.transform.position.y + 0.75f);
+                            switch (currentCol.GetComponent<Funcao>().machineType)
+                            {
+                                case Funcao.MachineType.Rest:
+                                    carried.transform.position = new Vector3(currentCol.transform.position.x, currentCol.transform.position.y +0.25f);
+                                    break;
+                                case Funcao.MachineType.Coffee:
+                                    carried.transform.position = new Vector3(currentCol.transform.position.x - 1f, currentCol.transform.position.y);
+                                    break;
+                                default:
+                                    carried.transform.position = new Vector3(currentCol.transform.position.x, currentCol.transform.position.y + 0.75f);
+                                    break;
+
+                            }
                             currentCol.GetComponent<Funcao>().ChangeCharUsing(carried.GetComponent<PlayerInfo>());
                             carried.GetComponent<PlayerInfo>().workingNow = currentCol.GetComponent<Funcao>();
                             carried = null;

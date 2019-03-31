@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
     public GameObject progressPanel, gameOverPanel;
     bool showPanel = false;
 
-    AudioSource audio;
+    public AudioSource sound,music;
     public AudioClip catchNPC, releaseNPC, tableSlam, startedWorking, stoppedWorking;
 
     public float gameProgress;
@@ -30,7 +30,6 @@ public class GameManager : MonoBehaviour
     {
         StartCoroutine(Timer());
         totalProgress = codeObjective + artObjective + writeObjective + coffeeObjective + soundObjective;
-        audio = GetComponent<AudioSource>();
     }
 
 
@@ -81,8 +80,8 @@ public class GameManager : MonoBehaviour
 
     public void PlaySound(AudioClip clip)
     {
-        audio.clip = clip;
-        audio.Play();
+        sound.clip = clip;
+        sound.Play();
     }
 
     IEnumerator Timer()
