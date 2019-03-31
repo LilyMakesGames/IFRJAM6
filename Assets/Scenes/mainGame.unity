@@ -303,6 +303,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 639055514bfed1e42a040a4604b5e6c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 0}
   playerState: 0
   manager: {fileID: 1373827754}
   cloth: {fileID: 0}
@@ -352,7 +353,7 @@ Animator:
   m_GameObject: {fileID: 30517639}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: aa3bf3060988b274f8eff69f3a0c98f8, type: 2}
+  m_Controller: {fileID: 9100000, guid: acf177288b7ccd746b50d20c5a4a565f, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -374,6 +375,7 @@ GameObject:
   - component: {fileID: 89911293}
   - component: {fileID: 89911292}
   - component: {fileID: 89911291}
+  - component: {fileID: 89911296}
   m_Layer: 0
   m_Name: NPC
   m_TagString: NPC
@@ -393,6 +395,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 639055514bfed1e42a040a4604b5e6c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 0}
   playerState: 0
   manager: {fileID: 1373827754}
   cloth: {fileID: 0}
@@ -423,7 +426,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.6, y: 1.04}
+    oldSize: {x: 0.6, y: 1.08}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -515,6 +518,25 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &89911296
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 89911290}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 60a3dc9f5885c07449746a0925458349, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &139379185
 GameObject:
   m_ObjectHideFlags: 0
@@ -1193,6 +1215,7 @@ GameObject:
   - component: {fileID: 421228094}
   - component: {fileID: 421228093}
   - component: {fileID: 421228092}
+  - component: {fileID: 421228097}
   m_Layer: 0
   m_Name: NPC
   m_TagString: NPC
@@ -1212,6 +1235,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 639055514bfed1e42a040a4604b5e6c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 0}
   playerState: 0
   manager: {fileID: 1373827754}
   cloth: {fileID: 0}
@@ -1334,6 +1358,25 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &421228097
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 421228091}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 95858c32156d35942a56cdaf2e981853, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &459501793
 GameObject:
   m_ObjectHideFlags: 0
