@@ -26,14 +26,6 @@ public class Player : MonoBehaviour
 		spriteRenderer = GetComponent<SpriteRenderer>();
 
     }
-	
-	void Update()
-	{
-		
-		//int h = Input.GetAxisRaw("Horizontal");
-		//int v = Input.GetAxisRaw("Vertical");
-	}
-
 
 
     void FixedUpdate()
