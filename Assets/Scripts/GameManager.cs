@@ -10,6 +10,9 @@ public class GameManager : MonoBehaviour
     public GameObject progressPanel, gameOverPanel;
     bool showPanel = false;
 
+    AudioSource audio;
+    public AudioClip catchNPC, releaseNPC, tableSlam, startedWorking, stoppedWorking;
+
     public float gameProgress;
     public float codeProgress, artProgress, writeProgress, coffeeProgress, soundProgress;
     float codeProgressMax = 30f, artProgressMax = 40f, writeProgressMax = 70f, coffeeProgressMax = 80f, soundProgressMax = 10f;
@@ -27,7 +30,7 @@ public class GameManager : MonoBehaviour
     {
         StartCoroutine(Timer());
         totalProgress = codeObjective + artObjective + writeObjective + coffeeObjective + soundObjective;
-
+        audio = GetComponent<AudioSource>();
     }
 
 
@@ -74,6 +77,12 @@ public class GameManager : MonoBehaviour
         coffeeProgressBar.fillAmount = (coffeeProgress / coffeeProgressMax);
         soundProgressBar.fillAmount = (soundProgress / soundProgressMax);
 
+    }
+
+    public void PlaySound(AudioClip clip)
+    {
+        audio.clip = clip;
+        audio.Play();
     }
 
     IEnumerator Timer()

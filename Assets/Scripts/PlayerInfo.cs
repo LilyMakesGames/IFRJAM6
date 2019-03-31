@@ -14,12 +14,15 @@ public class PlayerInfo : MonoBehaviour
 
     public PlayerState playerState;
 
+    public GameManager manager;
+
     public Sprite cloth, naked;
 
     public Funcao workingNow;
 
     public float prog, art, write, coffee, sound, patience;
     public float stress;
+    public bool soundStress;
 
     private void Update()
     {
@@ -27,6 +30,11 @@ public class PlayerInfo : MonoBehaviour
             stress = 0;
         if(stress > patience && workingNow.machineType != Funcao.MachineType.Rest)
         {
+            if (!soundStress)
+            {
+                soundStress = true;
+                StartCoroutine(StressSound());
+            }
             playerState = PlayerState.Stressing;
             workingNow.ChangeCharUsing(null);
             Debug.Log("CHEGA DESSA MERDA!!!!");
@@ -41,5 +49,13 @@ public class PlayerInfo : MonoBehaviour
         coffee = c;
         sound = s;
         patience = pa;
+    }
+
+    IEnumerator StressSound()
+    {
+        yield return new WaitForSeconds(0.8f);
+        manager.PlaySound(manager.tableSlam);
+        StartCoroutine(StressSound());
+
     }
 }

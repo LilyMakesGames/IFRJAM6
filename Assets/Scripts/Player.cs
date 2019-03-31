@@ -36,6 +36,7 @@ public class Player : MonoBehaviour
                             Debug.Log("Entrou?");
                             if (currentCol.GetComponent<Funcao>().charUsing == null && npcBehind == null)
                             {
+                                manager.PlaySound(manager.startedWorking);
                                 rb.velocity = Vector3.zero;
                                 info.workingNow = currentCol.GetComponent<Funcao>();
                                 transform.position = new Vector3(currentCol.transform.position.x, currentCol.transform.position.y + 0.75f);
@@ -50,12 +51,16 @@ public class Player : MonoBehaviour
                         if (Input.GetButton("Action"))
                         {
                             Debug.Log("GetNPC");
+                            manager.PlaySound(manager.catchNPC);
                             carried = npcBehind;
+                            carried.GetComponent<PlayerInfo>().soundStress = false;
+                            carried.GetComponent<PlayerInfo>().StopAllCoroutines();
                             info.playerState = PlayerInfo.PlayerState.Carrying;
                         }
                         if (currentCol != null && Input.GetButton("Action"))
                         {
                             Debug.Log("RemoveNPC");
+                            manager.PlaySound(manager.catchNPC);
                             currentCol.GetComponent<Funcao>().ChangeCharUsing(null);
                         }
                     }
@@ -65,6 +70,7 @@ public class Player : MonoBehaviour
                     if (Input.GetButtonDown("Action"))
                     {
                         Debug.Log("Leave Work");
+                        manager.PlaySound(manager.stoppedWorking);
                         info.workingNow.ChangeCharUsing(null);
                         info.playerState = PlayerInfo.PlayerState.Idle;
                     }
@@ -82,9 +88,12 @@ public class Player : MonoBehaviour
                             carried.GetComponent<PlayerInfo>().workingNow = currentCol.GetComponent<Funcao>();
                             carried = null;
                             info.playerState = PlayerInfo.PlayerState.Idle;
+                            manager.PlaySound(manager.releaseNPC);
+
                         }
                         else
                         {
+                            manager.PlaySound(manager.releaseNPC);
                             npcBehind = null;
                             carried.transform.position = transform.position;
                             carried = null;
