@@ -73,9 +73,10 @@ public class Player : MonoBehaviour
                         if (Input.GetButtonDown("Action"))
                         {
                             Debug.Log("Entrou?");
-							animator.SetBool("isWorking", true);
+							
                             if (currentCol.GetComponent<Funcao>().charUsing == null && npcBehind == null)
                             {
+								animator.SetBool("isWorking", true);
                                 rb.velocity = Vector3.zero;
                                 info.workingNow = currentCol.GetComponent<Funcao>();
                                 transform.position = new Vector3(currentCol.transform.position.x, currentCol.transform.position.y + 0.75f);
