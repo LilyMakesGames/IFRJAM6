@@ -17,6 +17,9 @@ public class GameManager : MonoBehaviour
 
     public Animator clockAnim;
 
+    public Image trophy;
+    public Text gameOverMessage;
+
     public float gameProgress;
     public float codeProgress=50f, artProgress = 50f, writeProgress = 50f, coffeeProgress = 50f, soundProgress = 50f;
     float codeProgressMax = 100f, artProgressMax = 100f, writeProgressMax = 100f, coffeeProgressMax = 100f, soundProgressMax = 100f;
@@ -34,6 +37,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+
         div = timer / 30;
         StartCoroutine(Timer());
         totalProgress = codeObjective + artObjective + writeObjective + coffeeObjective + soundObjective;
@@ -92,13 +96,46 @@ public class GameManager : MonoBehaviour
         sound.Play();
     }
 
+    void GameOver()
+    {
+        float aux;
+        aux = Mathf.Abs(codeProgress - codeObjective) + Mathf.Abs(artProgress - artObjective) + Mathf.Abs(writeProgress - writeObjective) + Mathf.Abs(soundProgress - soundObjective) + Mathf.Abs(coffeeProgress - coffeeObjective);
+        if(aux <= 20)
+        {
+            gameOverMessage.text = "You got First Place!" + "\n" + "Congratulations!";
+        }
+        if (aux > 20 && aux <= 30)
+        {
+            gameOverMessage.text = "You got Second Place!" +"\n"+"Almost there!";
+        }
+        if (aux > 30 && aux <= 40)
+        {
+            gameOverMessage.text = "You got Third Place!" +"\n" + "You can do better next time!";
+        }
+        if (aux > 40 && aux <= 50)
+        {
+            gameOverMessage.text = "You got Fourth Place!" + "\n" + "Try to think more about balance!";
+
+        }
+        if (aux > 50 && aux <= 60)
+        {
+            gameOverMessage.text = "You got Fifth Place!" + "\n" + "Don't let your friends burn out!";
+        }
+        if (aux > 60)
+        {
+            gameOverMessage.text = "You got Last Place!" + "\n" + "I don't even know what to tell you";
+        }
+        gameOverPanel.SetActive(true);
+        gameStarted = false;
+
+    }
+
     IEnumerator Timer()
     {
         yield return new WaitForSeconds(1f);
         if (timer <= 0)
         {
-            gameOverPanel.SetActive(true);
-            gameStarted = false;
+            GameOver();
             StopAllCoroutines();
         }
         countTimer++;
