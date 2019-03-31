@@ -58,8 +58,13 @@ public class PlayerInfo : MonoBehaviour
                 }
                 playerState = PlayerState.Stressing;
                 workingNow.ChangeCharUsing(null);
+				animator.SetBool("isAngry", true);
                 Debug.Log("CHEGA DESSA MERDA!!!!");
             }
+			else
+			{
+				animator.SetBool("isAngry", false);
+			}
         }
     }
 
