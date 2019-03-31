@@ -5,29 +5,37 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-
+    int count, countTimer = 0;
     public Image codeProgressBar, artProgressBar, writeProgressBar, coffeeProgressBar, soundProgressBar;
     public GameObject progressPanel, gameOverPanel;
     bool showPanel = false;
 
+    public Image codeArrow, artArrow, writeArrow, coffeeArrow, soundArrow;
+
     public AudioSource sound,music;
     public AudioClip catchNPC, releaseNPC, tableSlam, startedWorking, stoppedWorking;
 
+    public Animator clockAnim;
+
     public float gameProgress;
+    [HideInInspector]
     public float codeProgress, artProgress, writeProgress, coffeeProgress, soundProgress;
-    float codeProgressMax = 30f, artProgressMax = 40f, writeProgressMax = 70f, coffeeProgressMax = 80f, soundProgressMax = 10f;
-    float codeObjective, artObjective, writeObjective, coffeeObjective, soundObjective;
+    float codeProgressMax = 100f, artProgressMax = 100f, writeProgressMax = 100f, coffeeProgressMax = 100f, soundProgressMax = 100f;
+    public float codeObjective, artObjective, writeObjective, coffeeObjective, soundObjective;
     float totalProgress;
 
     public float decay;
 
     [SerializeField]
-    float timer = 180;
+    float timer = 30;
+
+    float div;
 
     public bool gameStarted;
 
     void Start()
     {
+        div = timer / 30;
         StartCoroutine(Timer());
         totalProgress = codeObjective + artObjective + writeObjective + coffeeObjective + soundObjective;
     }
@@ -36,12 +44,8 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         ProgressUpdate();
-        if (timer <= 0)
-        {
-            StopCoroutine(Timer());
-            gameOverPanel.SetActive(true);
-            gameStarted = false;
-        }
+        codeArrow.GetComponent<RectTransform>().anchoredPosition = new Vector3((codeObjective / codeProgressMax* 66) + 7, 5);
+
     }
 
 
@@ -87,12 +91,28 @@ public class GameManager : MonoBehaviour
     IEnumerator Timer()
     {
         yield return new WaitForSeconds(1f);
+        if (timer <= 0)
+        {
+            gameOverPanel.SetActive(true);
+            gameStarted = false;
+            StopAllCoroutines();
+        }
+        countTimer++;
+        if (countTimer >= div)
+        {
+            clockAnim.SetInteger("Animation", count);
+            count++;
+            countTimer = 0;
+
+        }
         timer--;
+        Debug.Log(timer);
         codeProgress -= decay;
         artProgress -= decay;
         writeProgress -= decay;
         coffeeProgress -= decay;
         soundProgress -= decay;
         StartCoroutine(Timer());
+
     }
 }
