@@ -21,7 +21,7 @@ public class Player : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
 
         
-        info.SetStatus(3, 3, 3, 3, 3,999999);
+        info.SetStatus(4, 4, 4, 4, 4,999999);
 		animator = GetComponent<Animator>();
 		spriteRenderer = GetComponent<SpriteRenderer>();
 
@@ -70,7 +70,6 @@ public class Player : MonoBehaviour
                             if (currentCol.GetComponent<Funcao>().charUsing == null && npcBehind == null)
                             {
                                 manager.PlaySound(manager.startedWorking);
-								//animator.SetBool("isWorking", true);
                                 rb.velocity = Vector3.zero;
                                 info.workingNow = currentCol.GetComponent<Funcao>();
                                 transform.position = new Vector3(currentCol.transform.position.x, currentCol.transform.position.y + 0.75f);
@@ -110,7 +109,6 @@ public class Player : MonoBehaviour
                     {
                         Debug.Log("Leave Work");
                         manager.PlaySound(manager.stoppedWorking);
-						//animator.SetBool("isWorking", false);
                         info.workingNow.ChangeCharUsing(null);
 						info.workingNow = null;
                         info.playerState = PlayerInfo.PlayerState.Idle;
@@ -179,6 +177,10 @@ public class Player : MonoBehaviour
                 manager.progressPanel.GetComponent<RectTransform>().position = new Vector3(manager.progressPanel.GetComponent<RectTransform>().position.x * -1, manager.progressPanel.GetComponent<RectTransform>().position.y);
             }
 
+        }
+        else
+        {
+            rb.velocity = Vector3.zero;
         }
     }
 

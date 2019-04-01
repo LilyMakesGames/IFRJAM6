@@ -53,7 +53,7 @@ TextureImporter:
     21300096: gamedev2_naked_spritesheet_48
     21300098: gamedev2_naked_spritesheet_49
   externalObjects: {}
-  serializedVersion: 9
+  serializedVersion: 7
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -440,9 +440,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 71
-        y: 384
+        y: 386
         width: 16
-        height: 30
+        height: 28
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}

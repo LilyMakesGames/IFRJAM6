@@ -30,50 +30,93 @@ public class PlayerInfo : MonoBehaviour
     public float prog, art, write, coffee, sound, patience;
     public float stress;
     public bool soundStress;
+    bool spawnBaloooooooon = false;
+
+    public GameObject prefabSweat, prefabRage, prefabLuv;
 	
 	void FixedUpdate()
 	{
-		if (workingNow != null)
-		{
-            switch (workingNow.machineType)
+        if (manager.gameStarted)
+        {
+            if (workingNow != null)
             {
-                case Funcao.MachineType.Rest:
-                    animator.SetBool("isTaked", true);
-                    GetComponent<SpriteRenderer>().flipX = true;
-                    break;
-                case Funcao.MachineType.Coffee:
-                    animator.SetBool("isTaked", true);
-                    break;
-                default:
-                    animator.SetBool("isWorking", true);
-                    break;
+                switch (workingNow.machineType)
+                {
+                    case Funcao.MachineType.Rest:
+                        animator.SetBool("isTaked", true);
+                        GetComponent<SpriteRenderer>().flipX = true;
+                        break;
+                    //case Funcao.MachineType.Coffee:
+                    //    animator.SetBool("isTaked", true);
+                    //    break;
+                    default:
+                        animator.SetBool("isWorking", true);
+                        break;
+                }
             }
-		}
-	}
+
+        }
+        else
+        {
+            StopAllCoroutines();
+        }
+    }
 
     private void Update()
     {
-        if (stress <= 0)
-            stress = 0;
-        if(workingNow != null)
+        if (manager.gameStarted)
         {
-            if (stress > patience && workingNow.machineType != Funcao.MachineType.Rest)
+            if (stress <= 0)
+                stress = 0;
+            if (workingNow != null)
             {
-                if (!soundStress)
+                if (stress >= patience && workingNow.machineType != Funcao.MachineType.Rest)
                 {
-                    soundStress = true;
-                    StartCoroutine(StressSound());
+                    if (!soundStress)
+                    {
+                        soundStress = true;
+                        StartCoroutine(StressSound());
+                    }
+                    playerState = PlayerState.Stressing;
+                    workingNow.ChangeCharUsing(null);
+                    animator.SetBool("isAngry", true);
+                    workingNow = null;
+                    Debug.Log("CHEGA DESSA MERDA!!!!");
                 }
-                playerState = PlayerState.Stressing;
-                workingNow.ChangeCharUsing(null);
-				animator.SetBool("isAngry", true);
-                workingNow = null;
-                Debug.Log("CHEGA DESSA MERDA!!!!");
+                if (stress < (patience / 10) && workingNow.machineType == Funcao.MachineType.Rest && !spawnBaloooooooon)
+                {
+                    StartCoroutine(SpawnLuv());
+                    spawnBaloooooooon = true;
+                }
             }
-			else
-			{
-				animator.SetBool("isAngry", false);
-			}
+            if (stress < patience)
+            {
+                animator.SetBool("isAngry", false);
+            }
+            if (stress > (patience / 2) && !spawnBaloooooooon)
+            {
+                if (stress > ((patience * 3) / 4))
+                {
+                    StartCoroutine(SpawnRage());
+                    spawnBaloooooooon = true;
+                }
+                else
+                {
+                    StartCoroutine(SpawnSweat());
+                    spawnBaloooooooon = true;
+
+                }
+            }
+        }
+        else
+        {
+            if (workingNow != null)
+            {
+                workingNow.ChangeCharUsing(null);
+                workingNow = null;
+                StopAllCoroutines();
+
+            }
         }
     }
 
@@ -93,5 +136,33 @@ public class PlayerInfo : MonoBehaviour
         manager.PlaySound(manager.tableSlam);
         StartCoroutine(StressSound());
 
+    }
+
+    public IEnumerator SpawnSweat()
+    {
+        GameObject baloon = Instantiate(prefabSweat,transform);
+        baloon.GetComponent<Transform>().localPosition = new Vector3(0, 1.3f, 0);
+        yield return new WaitForSeconds(0.8f);
+        Destroy(baloon);
+        yield return new WaitForSeconds(1f);
+        spawnBaloooooooon = false;
+    }
+    public IEnumerator SpawnRage()
+    {
+        GameObject baloon = Instantiate(prefabRage,transform);
+        baloon.GetComponent<Transform>().localPosition = new Vector3(0, 1.3f, 0);
+        yield return new WaitForSeconds(0.8f);
+        Destroy(baloon);
+        yield return new WaitForSeconds(1f);
+        spawnBaloooooooon = false;
+    }
+    public IEnumerator SpawnLuv()
+    {
+        GameObject baloon = Instantiate(prefabLuv,transform);
+        baloon.GetComponent<Transform>().localPosition = new Vector3(0, 1.3f, 0);
+        yield return new WaitForSeconds(0.8f);
+        Destroy(baloon);
+        yield return new WaitForSeconds(1f);
+        spawnBaloooooooon = false;
     }
 }

@@ -13,10 +13,11 @@ public class GameManager : MonoBehaviour
     public Image codeArrow, artArrow, writeArrow, coffeeArrow, soundArrow;
 
     public AudioSource sound,music;
-    public AudioClip catchNPC, releaseNPC, tableSlam, startedWorking, stoppedWorking;
+    public AudioClip catchNPC, releaseNPC, tableSlam, startedWorking, stoppedWorking, beep;
 
     public Animator clockAnim;
 
+    public Sprite trophy1, trophy2, trophy3, trophy4, trophy5;
     public Image trophy;
     public Text gameOverMessage;
 
@@ -35,11 +36,16 @@ public class GameManager : MonoBehaviour
 
     public bool gameStarted;
 
+    public SpriteRenderer FadeIn;
+    float transparency = 1;
+
+    public Sprite count3, count2, count1, countGo;
+    public SpriteRenderer countImage;
+
     void Start()
     {
-
+        StartCoroutine(StartGame());
         div = timer / 30;
-        StartCoroutine(Timer());
         totalProgress = codeObjective + artObjective + writeObjective + coffeeObjective + soundObjective;
         codeArrow.GetComponent<RectTransform>().anchoredPosition = new Vector3((codeObjective / codeProgressMax * 66) + 7, 5);
         artArrow.GetComponent<RectTransform>().anchoredPosition = new Vector3((artObjective / artProgressMax * 66) + 7, 5);
@@ -53,7 +59,8 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         ProgressUpdate();
-
+        transparency -= 0.2f;
+        FadeIn.color = new Color(0, 0, 0, transparency);
     }
 
 
@@ -98,31 +105,33 @@ public class GameManager : MonoBehaviour
 
     void GameOver()
     {
+        StopAllCoroutines();
         float aux;
         aux = Mathf.Abs(codeProgress - codeObjective) + Mathf.Abs(artProgress - artObjective) + Mathf.Abs(writeProgress - writeObjective) + Mathf.Abs(soundProgress - soundObjective) + Mathf.Abs(coffeeProgress - coffeeObjective);
-        if(aux <= 20)
+        if(aux <= 45)
         {
+            trophy.sprite = trophy1;
             gameOverMessage.text = "You got First Place!" + "\n" + "Congratulations!";
         }
-        if (aux > 20 && aux <= 30)
+        if (aux > 45 && aux <= 60)
         {
+            trophy.sprite = trophy2;
+
             gameOverMessage.text = "You got Second Place!" +"\n"+"Almost there!";
         }
-        if (aux > 30 && aux <= 40)
+        if (aux > 60 && aux <= 75)
         {
+            trophy.sprite = trophy3;
             gameOverMessage.text = "You got Third Place!" +"\n" + "You can do better next time!";
         }
-        if (aux > 40 && aux <= 50)
+        if (aux > 75 && aux <= 90)
         {
+            trophy.sprite = trophy4;
             gameOverMessage.text = "You got Fourth Place!" + "\n" + "Try to think more about balance!";
-
         }
-        if (aux > 50 && aux <= 60)
+        if (aux > 90)
         {
-            gameOverMessage.text = "You got Fifth Place!" + "\n" + "Don't let your friends burn out!";
-        }
-        if (aux > 60)
-        {
+            trophy.sprite = trophy5;
             gameOverMessage.text = "You got Last Place!" + "\n" + "I don't even know what to tell you";
         }
         gameOverPanel.SetActive(true);
@@ -138,22 +147,48 @@ public class GameManager : MonoBehaviour
             GameOver();
             StopAllCoroutines();
         }
-        countTimer++;
-        if (countTimer >= div)
+        else
         {
-            clockAnim.SetInteger("Animation", count);
-            count++;
-            countTimer = 0;
+            countTimer++;
+            if (countTimer >= div)
+            {
+                clockAnim.SetInteger("Animation", count);
+                count++;
+                countTimer = 0;
+
+            }
+            timer--;
+            codeProgress -= decay;
+            artProgress -= decay;
+            writeProgress -= decay;
+            coffeeProgress -= decay;
+            soundProgress -= decay;
+            ProgressUpdate();
+            StartCoroutine(Timer());
 
         }
-        timer--;
-        Debug.Log(timer);
-        codeProgress -= decay;
-        artProgress -= decay;
-        writeProgress -= decay;
-        coffeeProgress -= decay;
-        soundProgress -= decay;
-        StartCoroutine(Timer());
 
+    }
+
+    IEnumerator StartGame()
+    {
+        yield return new WaitForSeconds(1f);
+        countImage.gameObject.SetActive(true);
+        PlaySound(beep);
+        yield return new WaitForSeconds(1f);
+        countImage.sprite = count2;
+        PlaySound(beep);
+        yield return new WaitForSeconds(1f);
+        countImage.sprite = count1;
+        PlaySound(beep);
+        yield return new WaitForSeconds(1f);
+        countImage.sprite = countGo;
+        PlaySound(beep);
+        yield return new WaitForSeconds(1f);
+        countImage.gameObject.SetActive(false);
+        music.Play();
+
+        StartCoroutine(Timer());
+        gameStarted = true;
     }
 }
